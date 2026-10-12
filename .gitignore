@@ -1,3 +1,6 @@
 node_modules
 .tokenlane-home
 *.log
+python/dist
+**/__pycache__
+*.pyc
