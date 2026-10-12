@@ -3,7 +3,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 export const PRODUCT = "@talocode/tokenlane";
 export const OFFICIAL_TCODE_MINT = "6ptxwABxQz8zMhwhiPeVgRgWjGMdVcEBFBv8v8C3ory";
 export const DISCLAIMER = "Not financial, legal, or investment advice. This receipt is a workflow record. It does not issue a token, transfer legal title, or clear a regulator.";

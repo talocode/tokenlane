@@ -1,5 +1,6 @@
 import { createServer } from "node:http";
 import { addHolding, getReceipt, listRegistry, PRODUCT, savePlan, transferHolding, VERSION } from "./engine.mjs";
+import { creditPrices } from "./prices.mjs";
 
 async function readBody(req) {
   const chunks = [];
@@ -21,6 +22,10 @@ export function startServer(port = 8791, options = {}) {
     try {
       if (req.method === "GET" && url.pathname === "/v1/tokenlane/health") {
         send(res, 200, { ok: true, product: PRODUCT, version: VERSION });
+        return;
+      }
+      if (req.method === "GET" && url.pathname === "/v1/tokenlane/prices") {
+        send(res, 200, await creditPrices());
         return;
       }
       if (requiredKey) {

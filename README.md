@@ -52,7 +52,22 @@ const plan = await lane.plan({
 
 Set `TALOCODE_TOKENLANE_URL` to call a hosted server instead of the local files. `TALOCODE_API_KEY` is sent as a bearer token when the server was started with `TOKENLANE_API_KEY`.
 
+## Credit prices
+
+```bash
+node bin/tokenlane.mjs prices
+```
+
+`GET /v1/tokenlane/prices` and the MCP tool `tokenlane_prices` return the same catalog.
+
+The public page at https://talocode.site/pricing.html has 43 product actions, the router, 100 free credits, and a 500 credit minimum top-up. The live `GET https://api.talocode.site/api/v1/cloud/pricing` response on 12 October 2026 is shorter: `tera_api`, `searchlane`, and `calclane` only. Both are in the file. TokenLane does not invent the missing rows.
+
+Local `plan`, `hold`, `transfer`, `registry`, and `receipt` cost 0 credits. They do not call Talocode Cloud.
+
+1 credit = $0.01. Hold-to-earn tiers are included from https://talocode.site/tcode.html. Credits are usage, not cash.
+
 ## API server
+
 
 ```bash
 node bin/tokenlane.mjs serve --port=8791
@@ -86,6 +101,6 @@ TokenLane 0.1.0 does not deploy a contract, pick a price, or tell you an asset i
 
 ## Status
 
-0.1.0 ships the CLI, SDK, API server, and MCP server in this repo. Run `npm test` from a checkout. The package name is `@talocode/tokenlane`. This commit is not an npm publish.
+0.1.1 ships the CLI, SDK, API server, and MCP server in this repo. Run `npm test` from a checkout. The package name is `@talocode/tokenlane`. This commit is not an npm publish.
 
 Built by [Talocode](https://github.com/talocode).

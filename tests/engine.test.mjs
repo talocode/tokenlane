@@ -6,6 +6,7 @@ import { spawn } from "node:child_process";
 import test from "node:test";
 import { buildPlan, OFFICIAL_TCODE_MINT } from "../src/engine.mjs";
 import { TokenLane } from "../src/sdk.mjs";
+import { creditPrices } from "../src/prices.mjs";
 import { startServer } from "../src/server.mjs";
 
 const sample = {
@@ -100,10 +101,19 @@ test("mcp lists the five tools", async () => {
     assert.equal(init.result.serverInfo.name, "talocode-tokenlane");
     const listed = await waitFor((msg) => msg.id === 2);
     assert.deepEqual(listed.result.tools.map((tool) => tool.name), [
-      "tokenlane_plan", "tokenlane_hold", "tokenlane_transfer", "tokenlane_registry", "tokenlane_receipt",
+      "tokenlane_plan", "tokenlane_hold", "tokenlane_transfer", "tokenlane_registry", "tokenlane_prices", "tokenlane_receipt",
     ]);
   } finally {
     child.kill();
     await rm(home, { recursive: true, force: true });
   }
+});
+
+test("prices keep the public page and the shorter live map apart", async () => {
+  const result = await creditPrices();
+  assert.equal(result.catalog.pageActions.length, 43);
+  assert.equal(result.catalog.pageActions.find((row) => row.action === "video.render").credits, 200);
+  assert.equal(result.catalog.liveApi.searchlane["searchlane.query"], 5);
+  assert.equal(result.catalog.localTokenlane.credits, 0);
+  assert.equal(result.catalog.creditUsd, 0.01);
 });

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
 import { addHolding, getReceipt, listRegistry, savePlan, transferHolding } from "../src/engine.mjs";
+import { creditPrices } from "../src/prices.mjs";
 import { startMcp } from "../src/mcp.mjs";
 import { startServer } from "../src/server.mjs";
 
@@ -18,6 +19,7 @@ function usage() {
   tokenlane transfer --asset= --from= --to= --units=
   tokenlane registry [--asset=]
   tokenlane receipt [--id=]
+  tokenlane prices
   tokenlane mcp
   tokenlane serve --port=8791
 `);
@@ -60,6 +62,10 @@ if (cmd === "mcp") {
   process.exit(result.ok ? 0 : 1);
 } else if (cmd === "receipt") {
   const result = await getReceipt(flags.id);
+  process.stdout.write(JSON.stringify(result, null, 2) + "\n");
+  process.exit(result.ok ? 0 : 1);
+} else if (cmd === "prices") {
+  const result = await creditPrices();
   process.stdout.write(JSON.stringify(result, null, 2) + "\n");
   process.exit(result.ok ? 0 : 1);
 } else {

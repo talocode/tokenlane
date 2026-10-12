@@ -1,4 +1,5 @@
 import { addHolding, getReceipt, listRegistry, savePlan, transferHolding } from "./engine.mjs";
+import { creditPrices } from "./prices.mjs";
 
 export class TokenLane {
   constructor(options = {}) {
@@ -46,6 +47,11 @@ export class TokenLane {
     if (!this.baseUrl) return getReceipt(id, this.home);
     const path = id ? `/v1/tokenlane/receipts/${encodeURIComponent(id)}` : "/v1/tokenlane/receipts";
     return this.request(path);
+  }
+
+  prices() {
+    if (!this.baseUrl) return creditPrices();
+    return this.request("/v1/tokenlane/prices");
   }
 }
 

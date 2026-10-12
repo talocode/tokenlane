@@ -1,6 +1,6 @@
 {
   "name": "@talocode/tokenlane",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TokenLane plans a real-world asset workflow, keeps a local ownership registry, and writes a receipt. CLI, SDK, MCP, and API. It does not issue a token.",
   "type": "module",
   "bin": {

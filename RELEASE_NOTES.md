@@ -1,12 +1,12 @@
-# 0.1.0
+# 0.1.1
 
-TokenLane now runs the workflow the README described. It still does not issue a token.
+Credit prices are now a call, not a guess.
 
-- `tokenlane plan` writes an onboarding receipt, a questionnaire, and a representation spec.
-- `tokenlane hold`, `tokenlane transfer`, and `tokenlane registry` keep a local unit book under the supply cap.
-- `tokenlane serve` exposes the same calls at `/v1/tokenlane/*`.
-- `tokenlane mcp` exposes `tokenlane_plan`, `tokenlane_hold`, `tokenlane_transfer`, `tokenlane_registry`, and `tokenlane_receipt`.
-- The SDK is `TokenLane`. Set `TALOCODE_TOKENLANE_URL` to use the server instead of the local files.
-- The official $TCODE mint is recognized only so it is not treated as a new asset issuance.
+- `tokenlane prices`, `GET /v1/tokenlane/prices`, and MCP `tokenlane_prices`
+- 43 actions from https://talocode.site/pricing.html
+- The shorter live body from `GET https://api.talocode.site/api/v1/cloud/pricing` on 12 October 2026
+- Hold-to-earn tiers from https://talocode.site/tcode.html
+- Local plan, hold, transfer, registry, and receipt stay at 0 credits
+- Python package `talocode-tokenlane` reads the same file
 
-Not mounted on api.talocode.site. Not published to npm from this commit.
+Not published to npm. Not published to PyPI. No token on the machine that cut this release.

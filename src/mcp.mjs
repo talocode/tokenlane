@@ -1,4 +1,5 @@
 import { addHolding, getReceipt, listRegistry, savePlan, transferHolding, VERSION } from "./engine.mjs";
+import { creditPrices } from "./prices.mjs";
 
 const tools = [
   {
@@ -54,6 +55,11 @@ const tools = [
     inputSchema: { type: "object", properties: { assetId: { type: "string" } } },
   },
   {
+    name: "tokenlane_prices",
+    description: "Read Talocode Cloud credit prices. Local TokenLane calls cost 0. The live pricing endpoint is returned beside the public page.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
     name: "tokenlane_receipt",
     description: "Read one receipt, or the latest receipts.",
     inputSchema: { type: "object", properties: { id: { type: "string" } } },
@@ -66,6 +72,7 @@ async function callTool(name, args = {}) {
   if (name === "tokenlane_transfer") return transferHolding(args);
   if (name === "tokenlane_registry") return listRegistry(args.assetId);
   if (name === "tokenlane_receipt") return getReceipt(args.id);
+  if (name === "tokenlane_prices") return creditPrices();
   return { ok: false, errors: [`unknown tool: ${name}`] };
 }
 
