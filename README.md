@@ -1,45 +1,91 @@
 # TokenLane
 
-**Open-source agentic engine for tokenizing real-world assets and building practical RWA workflows.**
+Open-source workflow for planning a tokenized real-world asset and keeping the receipt.
 
-## Why We Build TokenLane
+The same call runs in the CLI, the SDK, the MCP server, and the API. A failed check returns the error. It does not pretend the asset was issued.
 
-Morgan Stanley’s Head of Digital Asset Strategy has projected that the tokenized assets (RWA) market will reach **$3 trillion to $10 trillion by 2030**. Current on-chain RWA value sits around $39 billion. This is not incremental growth — it is a structural shift in how assets are issued, transferred, used as collateral, and managed.
+**Not financial, legal, or investment advice.** TokenLane does not issue a token, deploy a contract, move legal title, or clear a regulator.
 
-Institutions are building infrastructure. Timelines are moving (Morgan Stanley now targets Q1 2027 for tokenized equities support on its ATS). The bottleneck is usable product, compliance tooling, and workflows that actually work for founders, asset owners, and builders — not just large banks.
+## Why
 
-**TokenLane exists to close that gap.**
+Headlines about a tokenized-asset market are easy. The hard part is the workflow: what the asset is, who owns it today, what one unit means, who may hold it, and what was recorded.
 
-Following the same philosophy as VideoLane (agentic video production) and other Talocode tools, TokenLane is designed as a practical, open-source system that turns asset tokenization from a specialized, high-friction process into something builders can run, customize, and ship.
+TokenLane is that workflow. An agent can call it. A person can run it. The output is a plan and a local registry, not an offering.
 
-### Core motivations
+## CLI
 
-- **Product gap over narrative**: Headlines about trillions are easy. Reliable issuance, compliance checks, ownership tracking, transfer logic, and reporting are hard. We focus on the hard parts.
-- **Agentic workflows**: AI agents can handle research, document structuring, compliance questionnaire generation, smart-contract scaffolding, and multi-step orchestration that currently require specialized teams.
-- **Open-source by default**: The infrastructure layer for the next wave of assets should not be locked inside a few institutions. Builders in emerging markets and independent teams need tools they can inspect, modify, and deploy.
-- **Practical outcomes**: TokenLane aims to help turn real assets, equity stakes, revenue streams, or structured products into functional tokenized representations with clear ownership and usable rails.
+```bash
+node bin/tokenlane.mjs plan --file=examples/asset.json
+node bin/tokenlane.mjs hold --asset=asset_... --wallet=wallet-a --units=100
+node bin/tokenlane.mjs transfer --asset=asset_... --from=wallet-a --to=wallet-b --units=25
+node bin/tokenlane.mjs registry --asset=asset_...
+node bin/tokenlane.mjs receipt --id=rcpt_...
+```
 
-## What TokenLane Will Do
+`kind` is one of `real_estate`, `equity`, `revenue_share`, `invoice`, `commodity`, `other`.
 
-(Planned capabilities — early stage)
+Records live in `~/.talocode/tokenlane/`. Set `TOKENLANE_HOME` to put them somewhere else.
 
-- Asset onboarding workflows (documents, valuation inputs, jurisdiction flags)
-- Agentic assistance for structuring tokenization plans
-- Smart contract scaffolding for common RWA patterns (with clear disclaimers)
-- Ownership registry and transfer tooling
-- Integration points for oracles, compliance providers, and settlement layers
-- Reporting and audit trail generation
+## MCP
+
+```bash
+node bin/tokenlane.mjs mcp
+```
+
+Tools: `tokenlane_plan`, `tokenlane_hold`, `tokenlane_transfer`, `tokenlane_registry`, `tokenlane_receipt`.
+
+## SDK
+
+```js
+import { TokenLane } from "@talocode/tokenlane";
+
+const lane = new TokenLane();
+const plan = await lane.plan({
+  name: "Example warehouse revenue share",
+  kind: "revenue_share",
+  jurisdiction: "NG",
+  documents: ["operator-note.md"],
+  valuationNote: "Operator estimate. Not an appraisal.",
+  supply: 1000000,
+});
+```
+
+Set `TALOCODE_TOKENLANE_URL` to call a hosted server instead of the local files. `TALOCODE_API_KEY` is sent as a bearer token when the server was started with `TOKENLANE_API_KEY`.
+
+## API server
+
+```bash
+node bin/tokenlane.mjs serve --port=8791
+```
+
+| Method | Path | |
+|---|---|---|
+| GET | `/v1/tokenlane/health` | Open, even when a key is set |
+| POST | `/v1/tokenlane/plan` | Validate and store a plan |
+| GET | `/v1/tokenlane/registry` | All plans, or one book with `?assetId=` |
+| POST | `/v1/tokenlane/hold` | Add units, refuse the supply cap |
+| POST | `/v1/tokenlane/transfer` | Move units, refuse a short balance |
+| GET | `/v1/tokenlane/receipts` | Latest receipts |
+| GET | `/v1/tokenlane/receipts/:id` | One receipt |
+
+This route is not mounted on api.talocode.site yet.
+
+## What a plan contains
+
+- The asset record, or the list of fields that failed.
+- A questionnaire for that kind and jurisdiction. Questions, not legal answers.
+- A representation spec marked `spec_only`. It names hooks. It does not compile them.
+- Integration slots. An oracle URL is stored and not called. Settlement is the local registry. No chain write.
+- A receipt id.
+
+If `mint` is `6ptxwABxQz8zMhwhiPeVgRgWjGMdVcEBFBv8v8C3ory`, the plan warns that this is the official $TCODE utility mint and will not treat it as a new issuance.
+
+## What this is not
+
+TokenLane 0.1.0 does not deploy a contract, pick a price, or tell you an asset is compliant. The registry is one local writer. It is the book of what you recorded, not a land registry and not a cap table at a commission.
 
 ## Status
 
-Early. Repository initialized after the October 2026 Morgan Stanley commentary. Building in public under Talocode.
+0.1.0 ships the CLI, SDK, API server, and MCP server in this repo. Run `npm test` from a checkout. The package name is `@talocode/tokenlane`. This commit is not an npm publish.
 
-## Mission alignment
-
-Talocode builds useful open-source AI tools that help builders turn ideas, conversations, knowledge, and workflows into real outcomes. TokenLane is the RWA lane.
-
----
-
-**Not financial, legal, or investment advice.** Tokenization involves significant regulatory, legal, and technical complexity. TokenLane is a tooling project, not an issuer or advisor.
-
-Built by Talocode | [talocode](https://github.com/talocode)
+Built by [Talocode](https://github.com/talocode).

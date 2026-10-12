@@ -1,0 +1,24 @@
+{
+  "name": "@talocode/tokenlane",
+  "version": "0.1.0",
+  "description": "TokenLane plans a real-world asset workflow, keeps a local ownership registry, and writes a receipt. CLI, SDK, MCP, and API. It does not issue a token.",
+  "type": "module",
+  "bin": {
+    "tokenlane": "./bin/tokenlane.mjs",
+    "talocode-tokenlane": "./bin/tokenlane.mjs"
+  },
+  "exports": {
+    ".": "./src/sdk.mjs"
+  },
+  "files": ["bin", "src", "examples", "README.md", "LICENSE"],
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talocode/tokenlane.git"
+  },
+  "scripts": {
+    "test": "node --test tests/engine.test.mjs",
+    "start": "node bin/tokenlane.mjs serve"
+  }
+}

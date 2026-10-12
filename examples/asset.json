@@ -1,0 +1,11 @@
+{
+  "name": "Example warehouse revenue share",
+  "kind": "revenue_share",
+  "jurisdiction": "NG",
+  "documents": ["operator-note.md", "revenue-definition.md"],
+  "valuationNote": "Operator estimate. Not an appraisal.",
+  "supply": 1000000,
+  "oracleUrl": "",
+  "chain": "",
+  "mint": ""
+}
