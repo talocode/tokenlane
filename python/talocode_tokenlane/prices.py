@@ -7,7 +7,7 @@ def credit_prices():
     return {
         "ok": True,
         "product": "talocode-tokenlane",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "catalog": catalog,
         "disclaimer": "Prices are copied from Talocode's public page and the live pricing endpoint. 1 credit = $0.01. Credits are product usage, not cash.",
     }

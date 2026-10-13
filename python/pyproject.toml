@@ -4,17 +4,29 @@ build-backend = "hatchling.build"
 
 [project]
 name = "talocode-tokenlane"
-version = "0.1.1"
-description = "TokenLane plans a real-world asset workflow and reads Talocode Cloud credit prices. It does not issue a token."
+version = "0.1.2"
+description = "TokenLane plans a real-world asset workflow, keeps a local ownership registry, and writes a receipt. CLI and SDK. It does not issue a token, deploy a contract, or move legal title."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
-authors = [{ name = "Talocode" }]
-keywords = ["talocode", "tokenlane", "rwa", "mcp", "credits"]
+authors = [{ name = "Talocode", email = "updates@updates.teraai.chat" }]
+keywords = ["talocode", "tokenlane", "rwa", "real-world-assets", "registry", "receipt", "mcp", "credits", "tcode"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries",
+]
 
 [project.urls]
-Homepage = "https://github.com/talocode/tokenlane"
+Homepage = "https://talocode.site"
 Repository = "https://github.com/talocode/tokenlane"
+Documentation = "https://github.com/talocode/tokenlane#readme"
+Changelog = "https://github.com/talocode/tokenlane/blob/main/RELEASE_NOTES.md"
+Issues = "https://github.com/talocode/tokenlane/issues"
+Pricing = "https://talocode.site/pricing.html"
+TCODE = "https://talocode.site/tcode.html"
 
 [project.scripts]
 tokenlane = "talocode_tokenlane.cli:main"

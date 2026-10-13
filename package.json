@@ -1,7 +1,11 @@
 {
   "name": "@talocode/tokenlane",
-  "version": "0.1.1",
-  "description": "TokenLane plans a real-world asset workflow, keeps a local ownership registry, and writes a receipt. CLI, SDK, MCP, and API. It does not issue a token.",
+  "version": "0.1.2",
+  "description": "TokenLane plans a real-world asset workflow, keeps a local ownership registry, and writes a receipt. CLI, SDK, MCP, and API. It does not issue a token, deploy a contract, or move legal title.",
+  "keywords": ["talocode", "tokenlane", "rwa", "real-world-assets", "registry", "receipt", "mcp", "credits", "tcode"],
+  "author": "Talocode <updates@updates.teraai.chat>",
+  "homepage": "https://talocode.site",
+  "bugs": { "url": "https://github.com/talocode/tokenlane/issues" },
   "type": "module",
   "bin": {
     "tokenlane": "./bin/tokenlane.mjs",

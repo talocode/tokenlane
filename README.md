@@ -101,6 +101,6 @@ TokenLane 0.1.0 does not deploy a contract, pick a price, or tell you an asset i
 
 ## Status
 
-0.1.1 ships the CLI, SDK, API server, and MCP server in this repo. Run `npm test` from a checkout. The package name is `@talocode/tokenlane`. This commit is not an npm publish.
+0.1.2 ships the CLI, SDK, API server, and MCP server. The same plan, hold, transfer, registry, and receipt commands are in the Python package. Neither package issues a token.
 
 Built by [Talocode](https://github.com/talocode).
