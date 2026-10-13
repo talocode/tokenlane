@@ -83,7 +83,18 @@ node bin/tokenlane.mjs serve --port=8791
 | GET | `/v1/tokenlane/receipts` | Latest receipts |
 | GET | `/v1/tokenlane/receipts/:id` | One receipt |
 
-This route is not mounted on api.talocode.site yet.
+Hosted on Talocode Cloud:
+
+```
+Authorization: Bearer $TALOCODE_API_KEY
+POST https://api.talocode.site/v1/tokenlane/plan
+POST https://api.talocode.site/v1/tokenlane/hold
+POST https://api.talocode.site/v1/tokenlane/transfer
+GET  https://api.talocode.site/v1/tokenlane/registry
+GET  https://api.talocode.site/v1/tokenlane/receipts
+```
+
+Local CLI / SDK / MCP stay free. Hosted routes require a key and charge credits (plan 5, hold 2, transfer 5, registry 1, receipt 1). Registry is stored per-user in Netlify Blobs. No on-chain issuance or fake transfers.
 
 ## What a plan contains
 
